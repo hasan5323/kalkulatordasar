@@ -51,8 +51,8 @@
     <div class="container"> 
         <div class="input-group">
             <h2>MASUKKAN ANGKA</h2>
-            <input type="number" name="input-1" id="input-1" placeholder="Masukkan angka pertama" />
-            <input type="number" name="input-2" id="input-2" placeholder="Masukkan angka kedua" />
+            <input type="number" name="input-1" id="input-1" placeholder="Masukkan angka pertama" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1').replace(/^0[^.]/, '0');" />
+            <input type="number" name="input-2" id="input-2" placeholder="Masukkan angka kedua" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1').replace(/^0[^.]/, '0');" />
         </div>
         <hr>
         <div class="input-group">
@@ -63,33 +63,24 @@
                 <button class="btn-operator" id="times" onclick="calculate('*')">×</button>
                 <button class="btn-operator" id="divide" onclick="calculate('/')">÷</button>
             </div>
+        </div>
         <hr>
         <div class="input-group">
             <h2>Hasil</h2>
-            <p id="hasil"></p>
+            <div class="grid-container">
+                <div class="hasil-tambah"></div>
+                <div class="hasil-kurang"></div>
+                <div class="hasil-kali"></div>
+                <div class="hasil-bagi"></div>
+            </div>
         </div>
     </div>
 </main>
     <script>
-        const hasilPara = document.getElementById("hasil");
-
-        // Function to handle input validation and filtering
-        function handleInput(inputField) {
-            inputField.value = inputField.value
-                .replace(/[^0-9.]/g, '')
-                .replace(/(\..*?)\..*/g, '$1')
-                .replace(/^0[^.]/, '0');
-        }
-
-        // Attach the input validation to the input fields
-        document.getElementById("input-1").addEventListener("input", function() {
-            handleInput(this);
-        });
-
-        document.getElementById("input-2").addEventListener("input", function() {
-            handleInput(this);
-        });
-
+        const hasiltambah = document.getElementById("hasil-tambah");
+        const hasilkurang = document.getElementById("hasil-kurang");
+        const hasilkali = document.getElementById("hasil-kali");
+        const hasilbagi = document.getElementById("hasil-bagi");
 
         function calculate(operator) {
             const input1 = parseFloat(document.getElementById("input-1").value);
