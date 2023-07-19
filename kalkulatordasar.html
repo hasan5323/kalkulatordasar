@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* * {
+            box-sizing: border-box;
+        } */
+        h1 {
+        text-align: center;    
+        }
+        input {
+            border: 1px solid slategrey;
+            padding: 10px 20px;
+            margin: 5px;
+        }
+        .line {
+            display: block;
+        }
+        .container {
+            width: 400px;
+            height: 700px;
+        border: 5px solid black;
+        border-radius: 10%;
+        margin: auto;
+        text-align: center;
+        }
+        .flex-operasi {
+            display: flex;
+            padding: 20px;
+            list-style: none;
+            text-align: center;
+        }
+        .btn-operator {
+            border: 2px solid slateblue;
+            border-radius: 10%;
+            padding: 15px;
+            margin: 10px;
+        }
+        .btn-op {
+            background-color: blanchedalmond;
+            text-align: center;
+            padding: 25px;
+            font-size: 30px;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Kalkulator sederhana</h1>
+    <div class="container"> 
+        <form >
+            <div id="input">
+                <br><br><br><br>
+                <h2>INPUT</h2>
+                <input type="number" name="input-1" id="input-1" placeholder="masukkan angka pertama" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1').replace(/^0[^.]/, '0');" />
+                <input type="number" name="input-2" id="input-2" placeholder="masukkan angka kedua" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1').replace(/^0[^.]/, '0');" />
+            </div>
+            <div id="Operasi">
+                <hr class="line">
+                <h2>Operator</h2>
+                <ul class="flex-operasi">
+                    <li><button class="btn-op" id="plus">+</button></li>
+                    <li><button class="btn-op" id="minus">-</button></li>
+                    <li><button class="btn-op" id="times">x</button></li>
+                    <li><button class="btn-op" id="divide">/</button></li>
+                </ul>
+                <hr class="line">
+            </div>
+            <div class="Hasil">
+                <h2>Hasil</h2>
+                <p id="hasil"></p>
+                <br><br><br><br>
+                <p>******</p>
+            </div>
+        </form>
+    </div>
+    <script>
+        document.getElementById("plus").onclick = function() {
+            event.preventDefault();
+            calculate('+');
+        };
+
+        document.getElementById("minus").onclick = function() {
+            event.preventDefault();
+            calculate('-');
+        };
+
+        document.getElementById("times").onclick = function() {
+            event.preventDefault();
+            calculate('*');
+        };
+
+        document.getElementById("divide").onclick = function() {
+            event.preventDefault();
+            calculate('/');
+        };
+
+        function calculate(operator) {
+            var input1 = parseFloat(document.getElementById("input-1").value);
+            var input2 = parseFloat(document.getElementById("input-2").value);
+
+            if (isNaN(input1) || isNaN(input2)) {
+                document.getElementById("hasil").innerHTML = "Masukkan angka pada kedua input.";
+                return;
+            }
+
+            var res = 0;
+            if (operator === '+') {
+                res = input1 + input2;
+            } else if (operator === '-') {
+                res = input1 - input2;
+            } else if (operator === '*') {
+                res = input1 * input2;
+            } else if (operator === '/') {
+                if (input2 === 0) {
+                    document.getElementById("hasil").innerHTML = "Tidak dapat dibagi dengan 0.";
+                    return;
+                }
+                res = input1 / input2;
+            }
+
+            document.getElementById("hasil").innerHTML = "Hasil: " + res;
+        };
+    </script>
+
+</body>
+</html>
