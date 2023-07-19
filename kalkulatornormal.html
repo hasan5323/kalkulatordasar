@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Scientific Calculator</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+}
+
+.calculator {
+    width: 250px;
+    margin: 50px auto;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#inputField {
+    width: 100%;
+    padding: 5px;
+    font-size: 18px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+}
+
+button {
+    padding: 10px;
+    font-size: 18px;
+    background-color: #f2f2f2;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #e2e2e2;
+}
+
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <input type="text" id="inputField" placeholder="0">
+        <div class="buttons">
+            <button onclick="clearInput()">C</button>
+            <button onclick="appendInput('**')">^</button>
+            <button onclick="appendInput('sqrt(')">√</button>
+            <button onclick="appendInput('/')">/</button>
+            <button onclick="appendInput('7')">7</button>
+            <button onclick="appendInput('8')">8</button>
+            <button onclick="appendInput('9')">9</button>
+            <button onclick="appendInput('*')">x</button>
+            <button onclick="appendInput('4')">4</button>
+            <button onclick="appendInput('5')">5</button>
+            <button onclick="appendInput('6')">6</button>
+            <button onclick="appendInput('-')">-</button>
+            <button onclick="appendInput('1')">1</button>
+            <button onclick="appendInput('2')">2</button>
+            <button onclick="appendInput('3')">3</button>
+            <button onclick="appendInput('+')">+</button>
+            <button onclick="appendInput('0')">0</button>
+            <button onclick="appendInput('.')">.</button>
+            <button onclick="calculateResult()">=</button>
+        </div>
+    </div>
+
+    <script>
+        function appendInput(value) {
+    document.getElementById('inputField').value += value;
+}
+
+function clearInput() {
+    document.getElementById('inputField').value = '';
+}
+
+function calculateResult() {
+    try {
+        const inputField = document.getElementById('inputField');
+        const expression = inputField.value;
+
+        // Replace 'x' with '*' for multiplication
+        const processedExpression = expression.replace(/x/g, '*');
+
+        // Use the JavaScript built-in function 'eval' with a safer approach
+        const result = Function(`'use strict'; return (${processedExpression});`)();
+        
+        // Display the result
+        inputField.value = result;
+    } catch (error) {
+        alert('Error: Invalid Expression');
+    }
+}
+
+    </script>
+</body>
+</html>
